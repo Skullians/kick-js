@@ -1,16 +1,10 @@
 # @skullians/kick-js
 
-## 0.5.6
-
-### Patch Changes
-
-- fdda4f5: feat: add global settings for puppeteer
-
 ## 0.5.5
 
 ### Patch Changes
 
-- 61e7132: feat: add global settings for puppeteer
+- 1673c9e: feat: add global settings for puppeteer & update packages
 
 ## 0.5.4
 
