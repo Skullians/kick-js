@@ -1,6 +1,6 @@
 {
   "name": "@skullians/kick-js",
-  "version": "0.5.4",
+  "version": "0.5.6",
   "description": "A typescript bot interface for kick.com",
   "keywords": [
     "Kick.com",
@@ -12,20 +12,23 @@
     "Kick Api Wrapper",
     "Kick library"
   ],
-  "homepage": "https://github.com/retconned/kick-js",
+  "homepage": "https://github.com/Skullians/kick-js",
   "bugs": {
-    "url": "https://github.com/retconned/kick-js/issues"
+    "url": "https://github.com/Skullians/kick-js/issues"
   },
-  "author": "retconned <retcnned@gmail.com>",
+  "author": "Skullians <business@skullian.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/retconned/kick-js.git"
+    "url": "git+https://github.com/Skullians/kick-js.git"
   },
   "files": [
     "dist"
   ],
   "engines": {
     "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "type": "module",
   "license": "MIT",
