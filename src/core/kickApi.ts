@@ -4,13 +4,21 @@ import type { KickChannelInfo } from "../types/channels";
 import type { VideoInfo } from "../types/video";
 import type { AuthenticationSettings } from "../types/client";
 import { authenticator } from "@otplib/v12-adapter";
+import { getSettings } from "./settings";
 
 const setupPuppeteer = async () => {
+  const { puppeteer: settings } = getSettings();
+  const args = [
+    "--start-maximized",
+    ...(settings?.args ?? []),
+    ...(!settings?.sandbox ? ["--no-sandbox", "--disable-setuid-sandbox"] : []),
+  ];
+
   const puppeteerExtra = puppeteer.use(StealthPlugin());
   const browser = await puppeteerExtra.launch({
-    headless: true,
+    headless: settings?.headless ?? true,
     defaultViewport: null,
-    args: ["--start-maximized"],
+    args,
   });
   const page = await browser.newPage();
   return { browser, page };
@@ -101,13 +109,7 @@ export const authentication = async ({
   let cookieString = "";
   let isAuthenticated = false;
 
-  const puppeteerExtra = puppeteer.use(StealthPlugin());
-  const browser = await puppeteerExtra.launch({
-    headless: true,
-    defaultViewport: null,
-  });
-
-  const page = await browser.newPage();
+  const { browser, page } = await setupPuppeteer();
   const requestData: any[] = [];
 
   // Enable request interception

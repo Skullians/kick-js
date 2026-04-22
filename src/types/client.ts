@@ -6,6 +6,9 @@ export interface ClientOptions {
   plainEmote?: boolean;
   logger?: boolean;
   readOnly?: boolean;
+  puppeteer?: {
+    noSandbox?: boolean;
+  };
 }
 
 export interface Video {
