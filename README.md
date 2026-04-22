@@ -1,7 +1,15 @@
-![Version](https://img.shields.io/npm/v/@retconned/kick-js?label=Version)
-![License](https://img.shields.io/npm/l/@retconned/kick-js?label=License)
+![Version](https://img.shields.io/npm/v/@skullians/kick-js?label=Version)
+![License](https://img.shields.io/npm/l/@skullians/kick-js?label=License)
 
-❇️ **@retconned/kick-js**
+❇️ **@skullians/kick-js**
+
+## What is this fork?
+
+This is a fork of [@retconned/kick-js](https://github.com/retconned/kick-js) that adds some features & fixes that I came across while working with it.\
+Retconned's activity unfortunately seemed relatively low so I've decided to maintain a fork... retconned, if you're reading this, feel free to send me a mail @ `business@skullian.com` and I'd be happy to make some PRs!
+
+> [!IMPORTANT]
+> **All** issues discovered while using this fork should be made [**in this fork's issues**](https://github.com/Skullians/kick-js/issues). Please do not bother Retconned if you discover issues with this fork.
 
 ## **What is kick-js**
 
@@ -11,52 +19,52 @@
 
 ## Features :rocket:
 
--   Supports reading & writing to Kick.com chat.
--   Moderation actions (ban, slowmode).
--   Written in TypeScript.
+- Supports reading & writing to Kick.com chat.
+- Moderation actions (ban, slowmode).
+- Written in TypeScript.
 
 ## Installation :package:
 
-Install the @retconned/kick-js package using the following command:
+Install the @skullians/kick-js package using the following command:
 
 ```sh
-npm install @retconned/kick-js
+npm install @skullians/kick-js
 ```
 
 ## Example code :computer:
 
 ```ts
-import { createClient } from "@retconned/kick-js";
+import { createClient } from "@skullians/kick-js";
 import "dotenv/config";
 
 const client = createClient("xqc", { logger: true, readOnly: true });
 // readOnly: true will make the client only read messages from the chat, and disable all other authenticated actions.
 
 client.login({
-    type: "login",
-    credentials: {
-        username: "xqc",
-        password: "bigschnozer420",
-        otp_secret: "your-2fa-secret",
-    },
+  type: "login",
+  credentials: {
+    username: "xqc",
+    password: "bigschnozer420",
+    otp_secret: "your-2fa-secret",
+  },
 });
 // to get your OTP secret, you need to go to https://kick.com/settings/security and enable Two-Factor Authentication and copy the secret from there
 
 // you can also authenticate using tokens obtained from the kick website directly by switching the type to 'tokens'
 client.login({
-    type: "tokens",
-    credentials: {
-        bearerToken: process.env.BEARER_TOKEN,
-        cookies: process.env.COOKIES,
-    },
+  type: "tokens",
+  credentials: {
+    bearerToken: process.env.BEARER_TOKEN,
+    cookies: process.env.COOKIES,
+  },
 });
 
 client.on("ready", () => {
-    console.log(`Bot ready & logged into ${client.user?.tag}!`);
+  console.log(`Bot ready & logged into ${client.user?.tag}!`);
 });
 
 client.on("ChatMessage", async (message) => {
-    console.log(`${message.sender.username}: ${message.content}`);
+  console.log(`${message.sender.username}: ${message.content}`);
 });
 
 // get information about a vod
