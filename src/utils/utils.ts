@@ -1,4 +1,4 @@
-import type { AuthenticationSettings, LoginOptions } from "../types/client";
+import type { LoginOptions } from "../types/client";
 
 export const parseJSON = <T>(json: string): T => JSON.parse(json) as T;
 

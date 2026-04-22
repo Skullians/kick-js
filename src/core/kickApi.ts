@@ -2,8 +2,8 @@ import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import type { KickChannelInfo } from "../types/channels";
 import type { VideoInfo } from "../types/video";
-import { authenticator } from "otplib";
 import type { AuthenticationSettings } from "../types/client";
+import { authenticator } from "@otplib/v12-adapter";
 
 const setupPuppeteer = async () => {
   const puppeteerExtra = puppeteer.use(StealthPlugin());

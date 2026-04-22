@@ -24,6 +24,9 @@
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=24"
+  },
   "type": "module",
   "license": "MIT",
   "main": "dist/index.js",
@@ -35,15 +38,11 @@
     "lint:check": "eslint \"src/**/*.{ts,js}\"",
     "lint:fix": "eslint --fix \"src/**/*.{ts,js}\"",
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
-
     "dev": "vitest",
-
     "checks": "npm run format:fix && npm run lint:ts && npm run check-exports && npm run build",
-
     "release:version": "changeset version",
     "release:publish": "changeset publish",
     "release:local": "npm run release:version && npm run release:publish",
-
     "prepublishOnly": "npm run checks"
   },
   "exports": {
@@ -54,25 +53,26 @@
     }
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.15.4",
-    "@changesets/cli": "^2.27.8",
-    "@types/ws": "^8.5.12",
-    "@typescript-eslint/eslint-plugin": "^8.4.0",
-    "@typescript-eslint/parser": "^8.4.0",
-    "eslint": "8",
-    "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.3.3",
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@changesets/cli": "^2.31.0",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@typescript-eslint/parser": "^8.59.0",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
     "tsup": "^8.2.4",
     "tsx": "^4.19.1",
     "typescript": "^5.5.4",
-    "vitest": "^2.1.1"
+    "vitest": "^4.1.5"
   },
   "dependencies": {
-    "axios": "^1.7.7",
-    "otplib": "^12.0.1",
-    "puppeteer": "^23.3.0",
+    "@otplib/v12-adapter": "^13.4.0",
+    "axios": "^1.15.2",
+    "otplib": "^13.4.0",
+    "puppeteer": "^24.42.0",
     "puppeteer-extra": "3.3.6",
     "puppeteer-extra-plugin-stealth": "2.11.2",
-    "ws": "^8.18.0"
+    "ws": "^8.20.0"
   }
 }
