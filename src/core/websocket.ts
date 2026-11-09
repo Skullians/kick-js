@@ -2,7 +2,7 @@ import { URLSearchParams } from "node:url";
 import WebSocket from "ws";
 
 const DEFAULT_BASE_URL = "wss://ws-us2.pusher.com/app";
-const DEFAULT_APP_KEY = "32cbd69e4b950bf97679";
+const DEFAULT_APP_KEY = "34bf7a0ff419a2a775b9";
 const MAX_RECONNECT_DELAY = 30000;
 
 export interface ReconnectingSocketOptions {
