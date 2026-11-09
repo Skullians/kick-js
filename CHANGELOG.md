@@ -1,5 +1,11 @@
 # @retconned/kick-js
 
+## 0.9.0
+
+### Minor Changes
+
+- 8823571: Rebased.
+
 ## 0.8.0
 
 ### Minor Changes
