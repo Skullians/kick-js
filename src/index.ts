@@ -5,6 +5,8 @@ export {
   HttpStatusError,
   isAuthExpiredError,
 } from "./core/request-helper";
+export type { GlobalSettings, PuppeteerSettings } from "./core/settings";
+export { configure } from "./core/settings";
 export type { Chatroom, KickChannelInfo } from "./types/channels";
 export type {
   ClientEvents,

@@ -1,5 +1,5 @@
 {
-  "name": "@retconned/kick-js",
+  "name": "@skullians/kick-js",
   "version": "0.8.0",
   "description": "A typescript bot interface for kick.com",
   "keywords": [
@@ -75,6 +75,9 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
+    "puppeteer": "^24.42.0",
+    "puppeteer-extra": "3.3.6",
+    "puppeteer-extra-plugin-stealth": "2.11.2",
     "ws": "^8.18.0"
   }
 }

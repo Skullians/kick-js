@@ -1,31 +1,42 @@
-import axios from "axios";
+import puppeteer from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { type KickChannelInfo } from "../types/channels";
 import { type VideoInfo } from "../types/video";
 import { DEFAULT_TIMEOUT_MS } from "./request-helper";
+import { getSettings } from "./settings";
 
 export const KICK_API_BASE = "https://kick.com";
-
-const BROWSER_HEADERS: Record<string, string> = {
-  accept:
-    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-  "accept-language": "en-US,en;q=0.9",
-  "cache-control": "max-age=0",
-  referer: "https://kick.com/",
-  "sec-ch-ua": '"Not A(Brand";v="8", "Chromium";v="132"',
-  "sec-ch-ua-mobile": "?0",
-  "sec-ch-ua-platform": '"macOS"',
-  "sec-fetch-dest": "document",
-  "sec-fetch-mode": "navigate",
-  "sec-fetch-site": "same-origin",
-  "user-agent":
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
-};
 
 const CLOUDFLARE_MESSAGE =
   "Request blocked by Cloudflare protection. Please try again later.";
 
+const browser = puppeteer.use(StealthPlugin());
+
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
+
+const launch = () => {
+  const { puppeteer: settings } = getSettings();
+  return browser.launch({
+    headless: settings?.headless ?? true,
+    defaultViewport: null,
+    args: [
+      "--start-maximized",
+      ...(settings?.args ?? []),
+      ...(settings?.sandbox
+        ? []
+        : ["--no-sandbox", "--disable-setuid-sandbox"]),
+    ],
+  });
+};
+
+const parseBody = (text: string): unknown => {
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
+};
 
 const fetchJson = async <T>(
   url: string,
@@ -34,22 +45,23 @@ const fetchJson = async <T>(
 ): Promise<T> => {
   let status = 0;
   let data: unknown;
+  let session: Awaited<ReturnType<typeof launch>> | null = null;
 
   try {
-    const response = await axios.get<unknown>(url, {
-      headers: BROWSER_HEADERS,
-      timeout: DEFAULT_TIMEOUT_MS,
-      validateStatus: () => true,
-    });
-    status = response.status;
-    data = response.data;
+    session = await launch();
+    const page = await session.newPage();
+    const response = await page.goto(url, { timeout: DEFAULT_TIMEOUT_MS });
+    status = response?.status() ?? 0;
+    data = parseBody((await response?.text()) ?? "");
   } catch (error) {
     throw new Error(
       `Failed to fetch ${label}: ${
-        axios.isAxiosError(error) ? error.message : String(error)
+        error instanceof Error ? error.message : String(error)
       }`,
       { cause: error },
     );
+  } finally {
+    await session?.close();
   }
 
   if (status === 403) {
