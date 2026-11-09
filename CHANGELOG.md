@@ -1,5 +1,11 @@
 # @retconned/kick-js
 
+## 0.9.1
+
+### Patch Changes
+
+- f293554: New Pusher app key.
+
 ## 0.9.0
 
 ### Minor Changes
